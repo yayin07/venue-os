@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // Change to "postgresql" for PostgreSQL
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  bookings      Booking[]
+  venues        Venue[]   // If a user can list venues
+}
+
+model Venue {
+  id           String    @id @default(cuid())
+  name         String
+  description  String
+  location     String
+  pricePerHour Float
+  capacity     Int
+  amenities    String    // Stored as JSON string
+  images       String    // Stored as JSON string
+  rating       Float     @default(0)
+  reviewCount  Int       @default(0)
+  featured     Boolean   @default(false)
+  ownerId      String
+  owner        User      @relation(fields: [ownerId], references: [id])
+  bookings     Booking[]
+  reviews      Review[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Booking {
+  id         String   @id @default(cuid())
+  venueId    String
+  venue      Venue    @relation(fields: [venueId], references: [id])
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  date       DateTime
+  startTime  String
+  endTime    String
+  guests     Int
+  status     String   // 'pending', 'confirmed', 'cancelled'
+  totalPrice Float
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  venueId   String
+  venue     Venue    @relation(fields: [venueId], references: [id])
+  userId    String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+}
