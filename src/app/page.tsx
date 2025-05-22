@@ -2,7 +2,7 @@ import { SearchFilters } from "@/components/search-filters";
 import { VenueCard } from "@/components/venue-card";
 import { venues } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, MapPin, Search, Star } from "lucide-react";
+import { ArrowRight, Calendar, Search, Star } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -213,7 +213,9 @@ export default function Home() {
                     </div>
                   </div>
                   <Separator className="my-4" />
-                  <p className="text-gray-700">"{testimonial.quote}"</p>
+                  <p className="text-gray-700">
+                    &quot;{testimonial.quote}&quot;
+                  </p>
                 </CardContent>
               </Card>
             ))}
