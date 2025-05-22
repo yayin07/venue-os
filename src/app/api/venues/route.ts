@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { venues } from "@/lib/mock-data"
 
 // GET /api/venues - Get all venues with optional filtering
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams
 
   // Extract filter parameters
   const location = searchParams.get("location")
@@ -16,19 +16,27 @@ export async function GET(request: Request) {
   let filteredVenues = [...venues]
 
   if (location) {
-    filteredVenues = filteredVenues.filter((venue) => venue.location.toLowerCase().includes(location.toLowerCase()))
+    filteredVenues = filteredVenues.filter((venue) =>
+      venue.location.toLowerCase().includes(location.toLowerCase())
+    )
   }
 
   if (minPrice) {
-    filteredVenues = filteredVenues.filter((venue) => venue.pricePerHour >= Number(minPrice))
+    filteredVenues = filteredVenues.filter(
+      (venue) => venue.pricePerHour >= Number(minPrice)
+    )
   }
 
   if (maxPrice) {
-    filteredVenues = filteredVenues.filter((venue) => venue.pricePerHour <= Number(maxPrice))
+    filteredVenues = filteredVenues.filter(
+      (venue) => venue.pricePerHour <= Number(maxPrice)
+    )
   }
 
   if (minCapacity) {
-    filteredVenues = filteredVenues.filter((venue) => venue.capacity >= Number(minCapacity))
+    filteredVenues = filteredVenues.filter(
+      (venue) => venue.capacity >= Number(minCapacity)
+    )
   }
 
   if (featured === "true") {

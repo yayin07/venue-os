@@ -167,7 +167,7 @@ export function BookingForm({ venueId }: BookingFormProps) {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full bg-accent hover:bg-amber-600 text-white"
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Inquire Now"}

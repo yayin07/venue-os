@@ -29,7 +29,7 @@ export function VenueCard({ venue }: VenueCardProps) {
         {venue.featured && (
           <Badge
             variant="secondary"
-            className="absolute top-2 left-2 bg-accent text-white hover:bg-accent"
+            className="absolute top-2 left-2  text-white hover:bg-accent bg-amber-500"
           >
             Featured
           </Badge>

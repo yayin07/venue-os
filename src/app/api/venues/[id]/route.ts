@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { venues } from "@/lib/mock-data";
 
 export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: { id: string } } 
 ) {
-  const { id } = context.params;
+  const { id } = params;
   const venue = venues.find((v) => v.id === id);
 
   if (!venue) {
